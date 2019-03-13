@@ -13,6 +13,7 @@ const routesOrders = require('./routes/orders');
 
 //导入 swagger 插件
 const pluginHapiSwagger = require('./plugins/hapi-swagger');
+const pluginHapiPagination = require('./plugins/hapi-pagination');
 
 const server = new Hapi.Server();
 
@@ -25,6 +26,7 @@ const init = async() => {
     // 挂载插件
     await server.register([
         ...pluginHapiSwagger,
+        pluginHapiPagination,
     ]);
 
     server.route([
