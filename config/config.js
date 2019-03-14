@@ -19,7 +19,6 @@ module.exports = {
         "port": env.MYSQL_PORT,
         "dialect": 'mysql',
         "operatorsAliases": false,
-        "jwtSecrect": env.jwtSecrect,
     },
     "test": {
         "username": env.MYSQL_USERNAME,
@@ -29,7 +28,6 @@ module.exports = {
         "port": env.MYSQL_PORT,
         "dialect": 'mysql',
         "operatorsAliases": false,
-        "jwtSecrect": env.jwtSecrect,
     },
     "production": {
         "username": env.MYSQL_USERNAME,
@@ -39,6 +37,5 @@ module.exports = {
         "port": env.MYSQL_PORT,
         "dialect": 'mysql',
         "operatorsAliases": false,
-        "jwtSecrect": env.jwtSecrect,
     }
 };
