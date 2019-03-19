@@ -11,10 +11,12 @@ const routesHelloHapi = require('./routes/hello-hapi');
 const routesShops = require('./routes/shops');
 const routesOrders = require('./routes/orders');
 const routesUsers = require('./routes/users');
+const hapiAuthJWT2 = require('hapi-auth-jwt2');
 
 //导入 swagger 插件
 const pluginHapiSwagger = require('./plugins/hapi-swagger');
 const pluginHapiPagination = require('./plugins/hapi-pagination');
+const pluginHapiAuthJWT2 = require('./plugins/hapi-auth-jwt2');
 
 const server = new Hapi.Server();
 
@@ -28,7 +30,10 @@ const init = async() => {
     await server.register([
         ...pluginHapiSwagger,
         pluginHapiPagination,
+        hapiAuthJWT2,
     ]);
+
+    pluginHapiAuthJWT2(server);
 
     server.route([
         ...routesHelloHapi,

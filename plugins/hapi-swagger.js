@@ -21,7 +21,11 @@ module.exports = [
                 {
                     name: 'shops',
                     description: '商铺前端联调接口'
-                }
+                },
+                {
+                    name: 'users',
+                    description: '用户管理'
+                },
             ]
         }
     },
