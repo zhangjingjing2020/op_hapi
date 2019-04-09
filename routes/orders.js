@@ -1,5 +1,9 @@
 const Joi = require('joi');
+const xml2js = requier('xml2js');
+const axios = require('axios');
+const crypto = require('crypto');
 const models = require('../models');
+const config = require('../config');
 const { jwtHeaderDefine } = require('../utils/router-helper');
 
 const GROUP_NAME = 'orders';
@@ -50,7 +54,22 @@ module.exports = [{
         method: 'POST',
         path: `/${GROUP_NAME}/{orderId}/pay`,
         handler: async(request, reply) => {
-            reply();
+            //从用户表中获取 openid
+            const user = await models.users.findOne({ where: { id: request.auth.credentials.userId } });
+            const { openid } = user;
+            // 构造unifiedorder所需入参
+            const unifiedorderObj = {
+                appid: config.wxAppid, //小程序 id
+                body: '小程序支付', // 商品简单描述
+                mch_id: config.wxMchid, //商户号
+                nonce_str: Math.random().toString(36).substr(2, 15),
+                notify_url: 'http://api.5icode.org/orders/pay/notify', // 支付成功的回调地址
+                openid, //用户 openid
+                out_trade_no: request.params.orderId, //商户订单号
+                spbill_create_ip: request.info.remoteAddress, //调用支付接口的用户 ip
+                total_fee: 1, //总金额，单位分
+                trade_type: 'JSAPI', //交易类型，默认
+            };
         },
         config: {
             tags: ['api', GROUP_NAME],
